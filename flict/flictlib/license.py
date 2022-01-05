@@ -98,6 +98,7 @@ class LicenseHandler:
         self.translations = []
         for translations_file in translations_files.split():
             translation_data = read_translations(translations_file)
+            #TODO: This is changing state and returning data
             self.translations.append(translation_data)
             for lic_key in translation_data:
                 if lic_key not in symbols_map:
@@ -117,7 +118,8 @@ class LicenseHandler:
         return rel if rel else transl
 
     def expand_relicense(self, license_expression):
-        if self.relicense_file is not None and self.relicense_file:
+        if self.relicense_file:
+            #TODO: This is changing state and returning data
             self.relicense_map = read_relicense_file(self.relicense_file)
             expanded = relicense_license(
                 self.relicense_map, license_expression)
@@ -126,6 +128,7 @@ class LicenseHandler:
             return license_expression.strip()
 
     def group(self, license_expression):
+        #TODO: This makes no sense
         return license_expression.strip()
 
     def translate(self, license_expression):
@@ -206,6 +209,7 @@ class LicenseHandler:
             AND [G, OR [A, B]]
         The latter is an interim format.
         """
+        #TODO: Polish notation. Why?
         encoded = encode_license_expression(license_expression)
         tokenizer = licensing.get_advanced_tokenizer()
         tokenized = tokenizer.tokenize(encoded)
